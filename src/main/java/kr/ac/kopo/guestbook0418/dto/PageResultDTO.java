@@ -51,10 +51,9 @@ public class PageResultDTO<DTO, EN> {
         this.size = pageable.getPageSize();
 
         // 현재 화면에 보여질 임시 마지막 페이지 번호
-        int tempEnd;
-        tempEnd = (int)(Math.ceil(page/10.0)) * 10;
+        int tempEnd = (int)(Math.ceil(page/10.0)) * 10;
 
-        start = tempEnd = 9;
+        start = tempEnd - 9;
 
         // 설정조건연산자에서 조건식 true면 마지막 화면이 아닌경우, false면 마지막화면이라는 의미
         // 전체페이지번호가 31일때: 마지막 화면이 아닌경우 1 ~ 3번째 화면(10, 20, 30), 마지막 화면은 4번째 화면을 의미(31)
