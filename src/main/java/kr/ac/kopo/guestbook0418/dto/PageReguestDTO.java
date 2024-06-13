@@ -14,6 +14,8 @@ public class PageReguestDTO {
 
     private int page;
     private int size;
+    private String type;
+    private String keyword;
 
     public PageReguestDTO(){
         this.page = 1;
