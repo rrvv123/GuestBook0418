@@ -10,14 +10,14 @@ import org.springframework.data.domain.Sort;
 @Builder
 @AllArgsConstructor
 @Data
-public class PageReguestDTO {
+public class PageRequestDTO {
 
     private int page;
     private int size;
     private String type;
     private String keyword;
 
-    public PageReguestDTO(){
+    public PageRequestDTO(){
         this.page = 1;
         this.size = 10;
     }

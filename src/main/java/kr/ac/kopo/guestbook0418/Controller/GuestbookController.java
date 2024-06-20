@@ -1,10 +1,9 @@
 package kr.ac.kopo.guestbook0418.Controller;
 
 import kr.ac.kopo.guestbook0418.dto.GuestbookDTO;
-import kr.ac.kopo.guestbook0418.dto.PageReguestDTO;
+import kr.ac.kopo.guestbook0418.dto.PageRequestDTO;
 import kr.ac.kopo.guestbook0418.service.GuestbookService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +25,9 @@ public class GuestbookController {
     }
 
     @GetMapping({"/list"})
-    public void list(PageReguestDTO pageReguestDTO, Model model){
+    public void list(PageRequestDTO pageRequestDTO, Model model){
 //        list.html(View 계층)에 방명록 목록과 화면에 보여질 때 필요한 페이지 번호들 등의 정보를 전달하기 위한 것이다.
-        model.addAttribute("result", service.getList(pageReguestDTO));
+        model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
     @GetMapping({"/register"})
@@ -45,7 +44,7 @@ public class GuestbookController {
     }
 
     @GetMapping({"/read", "modify"})
-    public void read(Long gno, @ModelAttribute("requestDTO") PageReguestDTO requestDTO, Model model){
+    public void read(Long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
         GuestbookDTO dto = service.read(gno);
 
         model.addAttribute("dto", dto);
@@ -61,12 +60,15 @@ public class GuestbookController {
 
     @PostMapping({"/modify"})
     public String modify(GuestbookDTO dto,
-                         @ModelAttribute("requestDTO") PageReguestDTO reguestDTO,
+                         @ModelAttribute("requestDTO") PageRequestDTO requestDTO,
                          RedirectAttributes redirectAttributes){
 
         service.modify(dto);
-        redirectAttributes.addAttribute("page", reguestDTO.getPage());
+        redirectAttributes.addAttribute("page", requestDTO.getPage());
+        redirectAttributes.addAttribute("type", requestDTO.getType());
+        redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());
         redirectAttributes.addAttribute("gno", dto.getGno());
+
 
         return "redirect:/guestbook/read";
     }

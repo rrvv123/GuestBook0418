@@ -6,7 +6,7 @@ import kr.ac.kopo.guestbook0418.Entity.Guestbook;
 import kr.ac.kopo.guestbook0418.Entity.QGuestbook;
 import kr.ac.kopo.guestbook0418.Repository.GuestbookRepository;
 import kr.ac.kopo.guestbook0418.dto.GuestbookDTO;
-import kr.ac.kopo.guestbook0418.dto.PageReguestDTO;
+import kr.ac.kopo.guestbook0418.dto.PageRequestDTO;
 import kr.ac.kopo.guestbook0418.dto.PageResultDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,10 +32,10 @@ import java.util.function.Function;
         }
 
         @Override
-        public PageResultDTO<GuestbookDTO, Guestbook> getList(PageReguestDTO reguestDTO) {
-            Pageable pageable = reguestDTO.getPageable(Sort.by("gno").descending());
+        public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO) {
+            Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());
 //            검색 기능 추가
-            BooleanBuilder booleanBuilder = getSearch(reguestDTO); // where 절의 조건식
+            BooleanBuilder booleanBuilder = getSearch(requestDTO); // where 절의 조건식
             Page<Guestbook> result = repository.findAll(booleanBuilder, pageable); // select 되는 부분(select문을 만듦) => 조건식이 포함된 select문이 생성됨. oracleDB에 연결을 시킴
             Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
 
@@ -69,9 +69,9 @@ import java.util.function.Function;
         }
 
         @Override
-        public BooleanBuilder getSearch(PageReguestDTO reguestDTO) {
-            String type = reguestDTO.getType();
-            String keyword = reguestDTO.getKeyword();
+        public BooleanBuilder getSearch(PageRequestDTO requestDTO) {
+            String type = requestDTO.getType();
+            String keyword = requestDTO.getKeyword();
 
             BooleanBuilder booleanBuilder = new BooleanBuilder();
             QGuestbook qGuestbook = QGuestbook.guestbook;

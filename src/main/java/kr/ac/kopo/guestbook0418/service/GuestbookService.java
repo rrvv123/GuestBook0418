@@ -3,7 +3,7 @@ package kr.ac.kopo.guestbook0418.service;
 import com.querydsl.core.BooleanBuilder;
 import kr.ac.kopo.guestbook0418.Entity.Guestbook;
 import kr.ac.kopo.guestbook0418.dto.GuestbookDTO;
-import kr.ac.kopo.guestbook0418.dto.PageReguestDTO;
+import kr.ac.kopo.guestbook0418.dto.PageRequestDTO;
 import kr.ac.kopo.guestbook0418.dto.PageResultDTO;
 
 public interface GuestbookService {
@@ -11,7 +11,7 @@ public interface GuestbookService {
     Long register(GuestbookDTO dto);
 
     // getList의 역할: 한 페이지에 보여질 글 목록(GuestbookDTO 객체)이 저장된 List정보를 갖고 있는 PageResultDTO객체 참조값을 반환하는 기능
-    PageResultDTO<GuestbookDTO, Guestbook> getList(PageReguestDTO reguestDTO);
+    PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO pageRequestDTO);
 
     GuestbookDTO read(Long gno);
     //글 제목과 내용 수정하는 기능
@@ -21,7 +21,7 @@ public interface GuestbookService {
     void remove(Long gno);
 
 //    검색 기능(QueryDsl 사용)
-    BooleanBuilder getSearch(PageReguestDTO reguestDTO);
+    BooleanBuilder getSearch(PageRequestDTO pageRequestDTOr);
 
     default Guestbook dtoToEntity(GuestbookDTO dto){
 

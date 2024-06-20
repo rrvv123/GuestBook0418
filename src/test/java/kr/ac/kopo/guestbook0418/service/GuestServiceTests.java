@@ -2,7 +2,7 @@ package kr.ac.kopo.guestbook0418.service;
 
 import kr.ac.kopo.guestbook0418.Entity.Guestbook;
 import kr.ac.kopo.guestbook0418.dto.GuestbookDTO;
-import kr.ac.kopo.guestbook0418.dto.PageReguestDTO;
+import kr.ac.kopo.guestbook0418.dto.PageRequestDTO;
 import kr.ac.kopo.guestbook0418.dto.PageResultDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,12 @@ public class GuestServiceTests {
     }
     @Test
     public void testList(){
-        PageReguestDTO pageReguestDTO = PageReguestDTO.builder()
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(5)
                 .size(10)
                 .build();
 
-        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageReguestDTO);
+        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageRequestDTO);
         List<GuestbookDTO> list = resultDTO.getDtoList();
 
         System.out.println("start: " + resultDTO.getStart());
@@ -53,14 +53,14 @@ public class GuestServiceTests {
 
     @Test
     public void testSearch(){
-        PageReguestDTO pageReguestDTO = PageReguestDTO.builder()
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(25)
                 .size(10)
                 .type("tc")
                 .keyword("7")
                 .build();
 
-        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageReguestDTO);
+        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageRequestDTO);
         List<GuestbookDTO> list = resultDTO.getDtoList();
 
         System.out.println("start: " + resultDTO.getStart());
