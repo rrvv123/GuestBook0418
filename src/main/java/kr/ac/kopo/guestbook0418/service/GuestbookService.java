@@ -1,5 +1,6 @@
 package kr.ac.kopo.guestbook0418.service;
 
+import com.querydsl.core.BooleanBuilder;
 import kr.ac.kopo.guestbook0418.Entity.Guestbook;
 import kr.ac.kopo.guestbook0418.dto.GuestbookDTO;
 import kr.ac.kopo.guestbook0418.dto.PageReguestDTO;
@@ -18,6 +19,9 @@ public interface GuestbookService {
 
     //글 삭제 기능
     void remove(Long gno);
+
+//    검색 기능(QueryDsl 사용)
+    BooleanBuilder getSearch(PageReguestDTO reguestDTO);
 
     default Guestbook dtoToEntity(GuestbookDTO dto){
 
